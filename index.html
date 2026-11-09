@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AetherTech // Next-Gen Cybernetic Gadgets</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & Orbitron -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            950: '#030712',
+                            900: '#070d1d',
+                            850: '#0b1329',
+                            800: '#111827',
+                            700: '#1e293b'
+                        },
+                        cyber: {
+                            cyan: '#00f2fe',
+                            blue: '#4facfe',
+                            violet: '#a855f7',
+                            neon: '#00ffc4',
+                            amber: '#f59e0b'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        tech: ['Orbitron', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'neon-cyan': '0 0 25px -5px rgba(0, 242, 254, 0.4)',
+                        'neon-violet': '0 0 25px -5px rgba(168, 85, 247, 0.4)',
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.45)',
+                        'inner-glow': 'inset 0 0 20px rgba(0, 242, 254, 0.15)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Ambient Effects & Glassmorphism */
+        .glass-panel {
+            background: rgba(13, 20, 38, 0.7);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-panel-hover:hover {
+            border-color: rgba(0, 242, 254, 0.4);
+            box-shadow: 0 10px 30px -10px rgba(0, 242, 254, 0.25);
+        }
+        .hero-glow-bg {
+            background: radial-gradient(circle at 50% 30%, rgba(0, 242, 254, 0.12) 0%, rgba(168, 85, 247, 0.08) 35%, transparent 70%);
+        }
+        .grid-matrix {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+        /* Floating Animation */
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(1deg); }
+        }
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.35; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
+        }
+        .floating-item {
+            animation: float-slow 6s ease-in-out infinite;
+        }
+        .pulse-ambient {
+            animation: pulse-glow 4s ease-in-out infinite;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030712;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00f2fe;
+        }
+    </style>
+</head>
+<body class="bg-dark-950 text-slate-100 font-sans antialiased overflow-x-hidden selection:bg-cyan-500 selection:text-black">
+
+    <!-- Toast Notification Overlay -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col space-y-3 pointer-events-none"></div>
+
+    <!-- Navigation Header -->
+    <header class="fixed top-0 left-0 right-0 z-40 glass-panel border-b border-white/10 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyber-cyan to-cyber-violet flex items-center justify-center p-0.5 shadow-neon-cyan">
+                    <div class="w-full h-full bg-dark-950 rounded-[10px] flex items-center justify-center">
+                        <i class="fa-solid fa-microchip text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan to-cyber-blue text-lg"></i>
+                    </div>
+                </div>
+                <div>
+                    <span class="font-tech text-xl font-bold tracking-widest text-white group-hover:text-cyber-cyan transition-colors">AETHER<span class="text-cyber-cyan">TECH</span></span>
+                    <span class="block text-[10px] font-mono tracking-wider text-slate-400">LABS // V.2026.4</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wide">
+                <a href="#hero" class="text-slate-300 hover:text-cyber-cyan transition-colors">Flagship</a>
+                <a href="#showcase" class="text-slate-300 hover:text-cyber-cyan transition-colors">Collection</a>
+                <a href="#comparator" class="text-slate-300 hover:text-cyber-cyan transition-colors">Comparator</a>
+                <a href="#teardown" class="text-slate-300 hover:text-cyber-cyan transition-colors">Internal X-Ray</a>
+                <a href="#configurator" class="text-slate-300 hover:text-cyber-cyan transition-colors">Lab Studio</a>
+                <a href="#reviews" class="text-slate-300 hover:text-cyber-cyan transition-colors">Press & Intel</a>
+            </nav>
+
+            <!-- Action Controls -->
+            <div class="flex items-center space-x-4">
+                <!-- Wishlist Quick View Button -->
+                <button onclick="toggleWishlistModal()" class="relative p-2.5 rounded-xl bg-slate-900/80 border border-slate-700/60 hover:border-cyber-violet text-slate-300 hover:text-white transition">
+                    <i class="fa-regular fa-heart"></i>
+                    <span id="wishlist-badge" class="hidden absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-cyber-violet text-[11px] font-bold text-white flex items-center justify-center">0</span>
+                </button>
+
+                <!-- Cart Trigger Button -->
+                <button onclick="toggleCartDrawer()" class="relative p-2.5 rounded-xl bg-slate-900/80 border border-slate-700/60 hover:border-cyber-cyan text-slate-300 hover:text-white transition group">
+                    <i class="fa-solid fa-bag-shopping group-hover:text-cyber-cyan transition-colors"></i>
+                    <span id="cart-counter" class="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-cyber-cyan text-slate-950 font-bold text-[11px] flex items-center justify-center shadow-neon-cyan">2</span>
+                </button>
+
+                <!-- Pre-Order CTA Button -->
+                <a href="#configurator" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyber-cyan via-cyber-blue to-cyber-violet text-slate-950 font-semibold text-sm hover:shadow-neon-cyan transition duration-300 transform hover:-translate-y-0.5">
+                    <span>Design Yours</span>
+                    <i class="fa-solid fa-arrow-right-long ml-2 text-xs"></i>
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileNav()" class="md:hidden p-2.5 rounded-xl bg-slate-900 text-slate-300 border border-slate-700">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Dropdown -->
+        <div id="mobile-nav" class="hidden md:hidden glass-panel border-t border-white/10 px-6 py-4 space-y-3">
+            <a href="#hero" onclick="toggleMobileNav()" class="block text-slate-200 hover:text-cyber-cyan py-1">Flagship</a>
+            <a href="#showcase" onclick="toggleMobileNav()" class="block text-slate-200 hover:text-cyber-cyan py-1">Collection</a>
+            <a href="#comparator" onclick="toggleMobileNav()" class="block text-slate-200 hover:text-cyber-cyan py-1">Comparator</a>
+            <a href="#teardown" onclick="toggleMobileNav()" class="block text-slate-200 hover:text-cyber-cyan py-1">Internal X-Ray</a>
+            <a href="#configurator" onclick="toggleMobileNav()" class="block text-slate-200 hover:text-cyber-cyan py-1">Lab Studio</a>
+            <a href="#reviews" onclick="toggleMobileNav()" class="block text-slate-200 hover:text-cyber-cyan py-1">Press & Intel</a>
+        </div>
+    </header>
+
+    <!-- 1. Hero Section -->
+    <section id="hero" class="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden grid-matrix hero-glow-bg">
+        <!-- Ambient background flares -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-cyan-500/10 blur-[130px] rounded-full pointer-events-none pulse-ambient"></div>
+        <div class="absolute top-1/3 left-1/3 w-[450px] h-[300px] bg-purple-600/10 blur-[140px] rounded-full pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Hero Information -->
+                <div class="lg:col-span-6 space-y-6 text-center lg:text-left z-10">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-950/60 border border-cyber-cyan/30 text-cyber-cyan text-xs font-mono tracking-wider shadow-inner">
+                        <span class="w-2 h-2 rounded-full bg-cyber-cyan animate-ping"></span>
+                        GEN-IV CYBERNETIC HARDWARE REVEAL
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-tech font-extrabold tracking-tight leading-tight">
+                        TRANSCEND <br/>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan via-white to-cyber-violet">
+                            REALITY WITH NEXUS-9
+                        </span>
+                    </h1>
+
+                    <p class="text-slate-300 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed font-light">
+                        Engineered with neural-adaptive bio-haptics, spatial quantum drivers, and sub-0.01ms ultra-low latency wireless streaming. The definitive bridge between flesh and pure audio precision.
+                    </p>
+
+                    <!-- Call To Actions -->
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
+                        <button onclick="quickAddToCart('Aether Nexus-9 Headphones', 499, 'Titanium Gray', 'audio_headphones')" class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-cyber-cyan to-cyber-blue text-slate-950 font-bold hover:shadow-neon-cyan transform hover:scale-[1.02] active:scale-95 transition flex items-center space-x-2">
+                            <i class="fa-solid fa-bolt"></i>
+                            <span>Instant Pre-Order — $499</span>
+                        </button>
+                        <a href="#teardown" class="px-7 py-3.5 rounded-xl glass-panel text-slate-200 hover:text-cyber-cyan hover:border-cyber-cyan/40 transition flex items-center space-x-2 group">
+                            <span>Explore Teardown</span>
+                            <i class="fa-solid fa-arrow-down-right-across-wire text-slate-400 group-hover:text-cyber-cyan transition-transform group-hover:translate-x-1"></i>
+                        </a>
+                    </div>
+
+                    <!-- Metrics Badges -->
+                    <div class="pt-8 border-t border-slate-800/80 grid grid-cols-3 gap-4 max-w-md mx-auto lg:mx-0 text-left">
+                        <div class="p-3 rounded-lg bg-dark-900/60 border border-slate-800">
+                            <p class="font-tech text-xl font-bold text-cyber-cyan">0.01ms</p>
+                            <p class="text-xs text-slate-400">Zero Latency</p>
+                        </div>
+                        <div class="p-3 rounded-lg bg-dark-900/60 border border-slate-800">
+                            <p class="font-tech text-xl font-bold text-cyber-neon">64h</p>
+                            <p class="text-xs text-slate-400">Graphene Cell</p>
+                        </div>
+                        <div class="p-3 rounded-lg bg-dark-900/60 border border-slate-800">
+                            <p class="font-tech text-xl font-bold text-cyber-violet">96kHz</p>
+                            <p class="text-xs text-slate-400">Spatial Driver</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Hero 3D Simulation & Telemetry Floating Badges -->
+                <div class="lg:col-span-6 relative flex items-center justify-center">
+                    <!-- Concentric Halo Rings -->
+                    <div class="absolute w-[340px] sm:w-[460px] h-[340px] sm:h-[460px] rounded-full border border-cyber-cyan/20 animate-spin" style="animation-duration: 35s;"></div>
+                    <div class="absolute w-[280px] sm:w-[380px] h-[280px] sm:h-[380px] rounded-full border border-dashed border-cyber-violet/30 animate-spin" style="animation-duration: 25s; animation-direction: reverse;"></div>
+
+                    <!-- Central Simulated Flagship Device (Vector-Sculpted SVG) -->
+                    <div class="relative z-10 floating-item">
+                        <div class="relative w-72 sm:w-96 h-72 sm:h-96 flex items-center justify-center">
+                            <!-- Premium SVG Gadget Visualization -->
+                            <svg viewBox="0 0 400 400" class="w-full h-full drop-shadow-[0_20px_40px_rgba(0,242,254,0.3)]" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="headbandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#1e293b"/>
+                                        <stop offset="50%" stop-color="#0f172a"/>
+                                        <stop offset="100%" stop-color="#00f2fe"/>
+                                    </linearGradient>
+                                    <linearGradient id="cupGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#334155"/>
+                                        <stop offset="40%" stop-color="#0f172a"/>
+                                        <stop offset="100%" stop-color="#090d16"/>
+                                    </linearGradient>
+                                    <linearGradient id="glowG" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" stop-color="#00f2fe" stop-opacity="0.8"/>
+                                        <stop offset="100%" stop-color="#a855f7" stop-opacity="0.3"/>
+                                    </linearGradient>
+                                </defs>
+                                
+                                <!-- Headband Arc -->
+                                <path d="M 90 230 C 70 80, 330 80, 310 230" fill="none" stroke="url(#headbandGrad)" stroke-width="26" stroke-linecap="round"/>
+                                <path d="M 120 180 C 120 110, 280 110, 280 180" fill="none" stroke="#00f2fe" stroke-width="2" stroke-dasharray="4 8" opacity="0.6"/>
+
+                                <!-- Inner Soft Cushion -->
+                                <path d="M 110 210 C 110 120, 290 120, 290 210" fill="none" stroke="#030712" stroke-width="12" stroke-linecap="round"/>
+
+                                <!-- Left Ear Cup System -->
+                                <g transform="translate(60, 200)">
+                                    <ellipse cx="40" cy="50" rx="36" ry="60" fill="url(#cupGrad)" stroke="#475569" stroke-width="3"/>
+                                    <ellipse cx="40" cy="50" rx="26" ry="46" fill="#030712" stroke="url(#glowG)" stroke-width="2.5"/>
+                                    <!-- Dynamic LED Core Ring -->
+                                    <circle cx="40" cy="50" r="14" fill="none" stroke="#00f2fe" stroke-width="3" opacity="0.9"/>
+                                    <circle cx="40" cy="50" r="4" fill="#00f2fe"/>
+                                </g>
+
+                                <!-- Right Ear Cup System -->
+                                <g transform="translate(240, 200)">
+                                    <ellipse cx="40" cy="50" rx="36" ry="60" fill="url(#cupGrad)" stroke="#475569" stroke-width="3"/>
+                                    <ellipse cx="40" cy="50" rx="26" ry="46" fill="#030712" stroke="url(#glowG)" stroke-width="2.5"/>
+                                    <!-- Dynamic LED Core Ring -->
+                                    <circle cx="40" cy="50" r="14" fill="none" stroke="#a855f7" stroke-width="3" opacity="0.9"/>
+                                    <circle cx="40" cy="50" r="4" fill="#a855f7"/>
+                                </g>
+
+                                <!-- Holographic Soundwaves -->
+                                <path d="M 180 250 Q 200 230 220 250 T 260 250" fill="none" stroke="#00f2fe" stroke-width="2" opacity="0.4"/>
+                                <path d="M 170 270 Q 200 255 230 270" fill="none" stroke="#a855f7" stroke-width="1.5" opacity="0.5"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Floating Telemetry Specs Badges -->
+                    <div class="absolute -top-4 right-4 sm:right-10 glass-panel px-4 py-2.5 rounded-2xl border-cyber-cyan/40 shadow-neon-cyan flex items-center space-x-3 backdrop-blur-md z-20">
+                        <div class="w-8 h-8 rounded-lg bg-cyber-cyan/20 flex items-center justify-center text-cyber-cyan">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <div>
+                            <p class="text-[11px] text-slate-400 font-mono">CHASSIS</p>
+                            <p class="text-xs font-bold text-white">Forged Titanium Grade 5</p>
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-12 -left-2 sm:left-4 glass-panel px-4 py-2.5 rounded-2xl border-cyber-violet/40 shadow-neon-violet flex items-center space-x-3 backdrop-blur-md z-20">
+                        <div class="w-8 h-8 rounded-lg bg-cyber-violet/20 flex items-center justify-center text-cyber-violet">
+                            <i class="fa-solid fa-wave-square"></i>
+                        </div>
+                        <div>
+                            <p class="text-[11px] text-slate-400 font-mono">ACOUSTICS</p>
+                            <p class="text-xs font-bold text-white">Quantum 54mm Neodymium</p>
+                        </div>
+                    </div>
+
+                    <div class="absolute -bottom-6 right-8 glass-panel px-3.5 py-2 rounded-xl border border-white/10 flex items-center space-x-2 text-xs font-mono text-slate-300">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span>FIRMWARE 4.19 STABLE</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Interactive Product Grid / Showcase -->
+    <section id="showcase" class="py-24 bg-dark-900/60 border-t border-b border-slate-800/80 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Header -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <div class="flex items-center space-x-2 text-cyber-cyan text-xs font-mono mb-2">
+                        <i class="fa-solid fa-cubes-stacked"></i>
+                        <span>CATALOGUE MATRIX 2026</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-tech font-bold text-white tracking-wide">
+                        NEXT-GEN DEPLOYMENTS
+                    </h2>
+                </div>
+                <p class="text-slate-400 text-sm max-w-md mt-4 md:mt-0">
+                    Hand-crafted quantum hardware prototypes ready for civilian and enterprise deployment. Filter below to inspect technical architecture.
+                </p>
+            </div>
+
+            <!-- Category Filter Tabs -->
+            <div class="flex items-center space-x-2 pb-6 overflow-x-auto no-scrollbar border-b border-slate-800/80 text-sm">
+                <button onclick="filterProducts('all', this)" class="category-btn px-5 py-2 rounded-xl bg-cyber-cyan text-slate-950 font-semibold transition whitespace-nowrap">
+                    All Systems (6)
+                </button>
+                <button onclick="filterProducts('audio', this)" class="category-btn px-5 py-2 rounded-xl bg-slate-900 text-slate-300 border border-slate-800 hover:border-slate-700 transition whitespace-nowrap">
+                    <i class="fa-solid fa-headphones mr-1.5"></i>Audio Tech
+                </button>
+                <button onclick="filterProducts('wearables', this)" class="category-btn px-5 py-2 rounded-xl bg-slate-900 text-slate-300 border border-slate-800 hover:border-slate-700 transition whitespace-nowrap">
+                    <i class="fa-solid fa-clock mr-1.5"></i>Wearables
+                </button>
+                <button onclick="filterProducts('vision', this)" class="category-btn px-5 py-2 rounded-xl bg-slate-900 text-slate-300 border border-slate-800 hover:border-slate-700 transition whitespace-nowrap">
+                    <i class="fa-solid fa-vr-cardboard mr-1.5"></i>Vision & XR
+                </button>
+                <button onclick="filterProducts('cybernetics', this)" class="category-btn px-5 py-2 rounded-xl bg-slate-900 text-slate-300 border border-slate-800 hover:border-slate-700 transition whitespace-nowrap">
+                    <i class="fa-solid fa-microchip mr-1.5"></i>Mobile & Cyber
+                </button>
+            </div>
+
+            <!-- Product Grid -->
+            <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
+                <!-- Injected via JavaScript dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Side-by-Side Gadget Comparator Tool -->
+    <section id="comparator" class="py-24 bg-dark-950 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <div class="inline-flex items-center space-x-2 text-cyber-violet text-xs font-mono mb-2">
+                    <i class="fa-solid fa-code-compare"></i>
+                    <span>PARALLEL BENCHMARK LAB</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-tech font-bold text-white">
+                    SIDE-BY-SIDE SPEC COMPARATOR
+                </h2>
+                <p class="text-slate-400 text-sm mt-3">
+                    Analyze clock cycles, latency margins, thermal dissipations, and architectural benchmarks before locking your acquisition.
+                </p>
+            </div>
+
+            <!-- Comparator Selector Bars -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <!-- Device 1 Selector -->
+                <div class="glass-panel p-5 rounded-2xl border-slate-800">
+                    <label class="block text-xs font-mono text-cyber-cyan uppercase mb-2">Primary Specimen [A]</label>
+                    <select id="comparator-select-1" onchange="updateComparator()" class="w-full bg-dark-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-cyber-cyan">
+                        <!-- Options generated via JS -->
+                    </select>
+                </div>
+                <!-- Device 2 Selector -->
+                <div class="glass-panel p-5 rounded-2xl border-slate-800">
+                    <label class="block text-xs font-mono text-cyber-violet uppercase mb-2">Secondary Specimen [B]</label>
+                    <select id="comparator-select-2" onchange="updateComparator()" class="w-full bg-dark-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-cyber-violet">
+                        <!-- Options generated via JS -->
+                    </select>
+                </div>
+            </div>
+
+            <!-- Interactive Comparison Table & Visual Comparison -->
+            <div class="glass-panel rounded-3xl border-slate-800 overflow-hidden shadow-2xl">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-dark-900/80 border-b border-slate-800 font-tech text-sm tracking-wider">
+                                <th class="p-5 text-slate-400 font-medium w-1/3">System Parameter</th>
+                                <th id="comp-head-1" class="p-5 text-cyber-cyan font-bold w-1/3">Loading Device A...</th>
+                                <th id="comp-head-2" class="p-5 text-cyber-violet font-bold w-1/3">Loading Device B...</th>
+                            </tr>
+                        </thead>
+                        <tbody id="comparator-tbody" class="divide-y divide-slate-800/60 text-sm">
+                            <!-- Populated with specs via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Immersive Teardown & Hotspot Deep-Dive -->
+    <section id="teardown" class="py-24 bg-dark-900/80 border-t border-b border-slate-800 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-mono px-3 py-1 rounded-full bg-cyan-950 text-cyber-cyan border border-cyber-cyan/30">
+                    INTERNAL ARCHITECTURE & SCHEMATICS
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-tech font-bold text-white mt-4">
+                    X-RAY COMPONENT TEARDOWN
+                </h2>
+                <p class="text-slate-400 text-sm mt-3">
+                    Hover or tap over the glowing telemetry nodes on the chassis to expose the quantum nanotech engineering beneath the skin.
+                </p>
+                <!-- Toggle View Mode Button -->
+                <div class="mt-6 inline-flex rounded-xl p-1 bg-dark-950 border border-slate-800">
+                    <button id="btn-exterior" onclick="switchTeardownView('exterior')" class="px-5 py-2 text-xs font-mono rounded-lg bg-cyber-cyan text-slate-950 font-bold transition">Chassis Shell</button>
+                    <button id="btn-xray" onclick="switchTeardownView('xray')" class="px-5 py-2 text-xs font-mono rounded-lg text-slate-400 hover:text-white transition">Quantum X-Ray View</button>
+                </div>
+            </div>
+
+            <!-- Interactive Teardown Canvas Graphic with Hotspots -->
+            <div class="relative max-w-4xl mx-auto glass-panel rounded-3xl p-6 sm:p-12 border border-slate-700/60 shadow-2xl overflow-hidden min-h-[480px] flex items-center justify-center">
+                <!-- Background Grid Accent -->
+                <div class="absolute inset-0 grid-matrix opacity-40"></div>
+
+                <!-- Teardown Vector Interactive Graphic -->
+                <div id="teardown-stage" class="relative w-full max-w-2xl h-80 sm:h-96 flex items-center justify-center transition-all duration-700">
+                    
+                    <!-- Vector Schematic Representation -->
+                    <svg id="teardown-svg" viewBox="0 0 600 350" class="w-full h-full drop-shadow-2xl">
+                        <!-- Outer Base -->
+                        <rect id="schematic-body" x="120" y="60" width="360" height="230" rx="36" fill="#0f172a" stroke="#00f2fe" stroke-width="2" class="transition-all duration-500"/>
+                        
+                        <!-- Internal Hardware (Visible in X-ray mode) -->
+                        <g id="schematic-internals" class="opacity-30 transition-opacity duration-500">
+                            <!-- Circuit paths -->
+                            <path d="M 160 120 L 260 120 L 300 175 L 420 175" fill="none" stroke="#38bdf8" stroke-width="2" stroke-dasharray="6,4"/>
+                            <path d="M 160 220 L 250 220 L 300 175" fill="none" stroke="#a855f7" stroke-width="2" stroke-dasharray="6,4"/>
+                            <!-- Neural Core -->
+                            <rect x="270" y="145" width="60" height="60" rx="10" fill="#030712" stroke="#00f2fe" stroke-width="3"/>
+                            <circle cx="300" cy="175" r="14" fill="#00f2fe" opacity="0.3"/>
+                            <!-- Driver Chamber Left -->
+                            <circle cx="190" cy="170" r="38" fill="#1e293b" stroke="#64748b" stroke-width="3"/>
+                            <circle cx="190" cy="170" r="18" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
+                            <!-- Battery Array Right -->
+                            <rect x="380" y="125" width="70" height="90" rx="8" fill="#090d16" stroke="#10b981" stroke-width="2"/>
+                            <line x1="395" y1="140" x2="435" y2="140" stroke="#10b981" stroke-width="3"/>
+                            <line x1="395" y1="160" x2="435" y2="160" stroke="#10b981" stroke-width="3"/>
+                            <line x1="395" y1="180" x2="435" y2="180" stroke="#10b981" stroke-width="3"/>
+                        </g>
+
+                        <!-- Cyber Deco Overlays -->
+                        <text x="140" y="95" fill="#64748b" font-size="10" font-family="monospace">SYS_DIAG: 0x8849</text>
+                        <text x="360" y="95" fill="#64748b" font-size="10" font-family="monospace">THERMAL: 27.4°C</text>
+                    </svg>
+
+                    <!-- Interactive Sensor Hotspot 1: Neural DSP -->
+                    <div class="absolute top-[48%] left-[50%] -translate-x-1/2 -translate-y-1/2 group">
+                        <button onclick="revealHotspot(1)" class="w-7 h-7 rounded-full bg-cyber-cyan/30 border-2 border-cyber-cyan flex items-center justify-center text-cyber-cyan animate-pulse hover:scale-125 transition">
+                            <span class="w-2 h-2 rounded-full bg-cyber-cyan"></span>
+                        </button>
+                        <div class="hidden sm:block absolute bottom-full mb-3 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none w-56">
+                            <div class="glass-panel p-3 rounded-xl border border-cyber-cyan/50 text-center text-xs shadow-neon-cyan">
+                                <span class="font-bold text-cyber-cyan block">Aether Neural-V SoC</span>
+                                <span class="text-slate-300 text-[11px]">8nm Quantum TPU with real-time acoustic space mapping.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Sensor Hotspot 2: Graphene Battery -->
+                    <div class="absolute top-[48%] left-[70%] -translate-x-1/2 -translate-y-1/2 group">
+                        <button onclick="revealHotspot(2)" class="w-7 h-7 rounded-full bg-emerald-500/30 border-2 border-emerald-400 flex items-center justify-center text-emerald-400 animate-pulse hover:scale-125 transition">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                        </button>
+                        <div class="hidden sm:block absolute bottom-full mb-3 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none w-56">
+                            <div class="glass-panel p-3 rounded-xl border border-emerald-400/50 text-center text-xs">
+                                <span class="font-bold text-emerald-400 block">Solid-State Graphene Pack</span>
+                                <span class="text-slate-300 text-[11px]">3,200mAh pack with 10-minute 80% Supercharge protocol.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Sensor Hotspot 3: Planar Magnetic Driver -->
+                    <div class="absolute top-[48%] left-[32%] -translate-x-1/2 -translate-y-1/2 group">
+                        <button onclick="revealHotspot(3)" class="w-7 h-7 rounded-full bg-cyber-violet/30 border-2 border-cyber-violet flex items-center justify-center text-cyber-violet animate-pulse hover:scale-125 transition">
+                            <span class="w-2 h-2 rounded-full bg-cyber-violet"></span>
+                        </button>
+                        <div class="hidden sm:block absolute bottom-full mb-3 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none w-56">
+                            <div class="glass-panel p-3 rounded-xl border border-cyber-violet/50 text-center text-xs shadow-neon-violet">
+                                <span class="font-bold text-cyber-violet block">Planar Magnetic Transducer</span>
+                                <span class="text-slate-300 text-[11px]">Ultra-thin gold-sputtered diaphragm delivering 5Hz-50kHz.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Info Box Display for Selected Hotspot -->
+                <div id="hotspot-info-box" class="absolute bottom-4 left-4 right-4 sm:left-8 sm:right-auto sm:max-w-md glass-panel p-4 rounded-xl border border-cyber-cyan/30 text-xs">
+                    <div class="flex items-center justify-between text-cyber-cyan font-mono mb-1">
+                        <span id="hotspot-title"><i class="fa-solid fa-microchip mr-2"></i>Aether Neural-V Processor</span>
+                        <span class="text-[10px] bg-cyan-950 px-2 py-0.5 rounded text-cyan-300 border border-cyan-800">TELEMETRY LIVE</span>
+                    </div>
+                    <p id="hotspot-desc" class="text-slate-300 text-xs">
+                        Handles 4.2 trillion ops/sec dynamically sculpting the ambient noise floor to total silence while preserving vocal clarity.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Interactive Gadget Configurator / Studio -->
+    <section id="configurator" class="py-24 bg-dark-950 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-xs font-mono px-3 py-1 rounded-full bg-violet-950 text-cyber-violet border border-cyber-violet/40">
+                    LAB STUDIO CONFIGURATOR
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-tech font-bold text-white mt-4">
+                    CUSTOMIZE YOUR HARDWARE
+                </h2>
+                <p class="text-slate-400 text-sm mt-3">
+                    Tailor materials, memory matrices, chassis colorway, and personalize with custom high-precision laser micro-engraving.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                <!-- Preview Canvas Card -->
+                <div class="lg:col-span-7 glass-panel p-8 sm:p-12 rounded-3xl border-slate-800 flex flex-col items-center justify-center relative overflow-hidden min-h-[460px]">
+                    <!-- Ambient Glow behind customized model -->
+                    <div id="config-glow" class="absolute w-80 h-80 rounded-full bg-cyber-cyan/15 blur-3xl pointer-events-none transition-colors duration-500"></div>
+
+                    <!-- Configurator Live SVG Device Display -->
+                    <div class="relative z-10 w-64 h-64 sm:w-80 sm:h-80 flex items-center justify-center">
+                        <svg viewBox="0 0 300 300" class="w-full h-full filter drop-shadow-xl" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Main Watch Body -->
+                            <rect id="config-chassis" x="75" y="75" width="150" height="150" rx="36" fill="#1e293b" stroke="#00f2fe" stroke-width="4" class="transition-all duration-300"/>
+                            
+                            <!-- Screen Bezel -->
+                            <rect x="90" y="90" width="120" height="120" rx="26" fill="#030712" stroke="#334155" stroke-width="2"/>
+                            
+                            <!-- Digital Hologram Ring on Watch Screen -->
+                            <circle cx="150" cy="150" r="42" fill="none" id="config-accent-circle" stroke="#00f2fe" stroke-width="3" stroke-dasharray="14 6"/>
+                            <text x="150" y="148" text-anchor="middle" fill="#ffffff" font-family="Orbitron" font-size="20" font-weight="bold">10:42</text>
+                            <text x="150" y="168" text-anchor="middle" id="config-telemetry-text" fill="#00f2fe" font-family="monospace" font-size="9">74 BPM // 98%</text>
+
+                            <!-- Laser Engraved Text on Chassis Plate -->
+                            <g id="engraving-layer">
+                                <rect x="95" y="232" width="110" height="16" rx="4" fill="#0b1329" opacity="0.9"/>
+                                <text id="svg-engraving-text" x="150" y="244" text-anchor="middle" fill="#94a3b8" font-family="monospace" font-size="9" letter-spacing="1">AETHER-CUSTOM</text>
+                            </g>
+                        </svg>
+                    </div>
+
+                    <!-- Live Configurator Price Pill -->
+                    <div class="mt-8 z-10 flex items-center justify-between w-full max-w-sm px-6 py-3 rounded-2xl bg-dark-900/90 border border-slate-700">
+                        <span class="text-xs text-slate-400 font-mono">ESTIMATED VALUATION:</span>
+                        <span id="config-total-price" class="text-2xl font-tech font-bold text-cyber-cyan">$649</span>
+                    </div>
+                </div>
+
+                <!-- Controls Interface -->
+                <div class="lg:col-span-5 space-y-6">
+                    <!-- Base Device Selector -->
+                    <div>
+                        <label class="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2">Base Platform</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button onclick="setConfigModel('chrono', 599)" id="btn-model-chrono" class="p-3.5 rounded-xl border border-cyber-cyan bg-slate-900 text-left text-xs transition">
+                                <p class="font-bold text-white">ChronoMatrix Watch</p>
+                                <p class="text-slate-400 text-[11px]">Base: $599</p>
+                            </button>
+                            <button onclick="setConfigModel('neural', 699)" id="btn-model-neural" class="p-3.5 rounded-xl border border-slate-800 bg-dark-900 text-left text-xs transition hover:border-slate-700">
+                                <p class="font-bold text-white">Neural Bands Gen-3</p>
+                                <p class="text-slate-400 text-[11px]">Base: $699</p>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Finish / Color Palette -->
+                    <div>
+                        <label class="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2">Chassis Colorway</label>
+                        <div class="flex items-center space-x-3">
+                            <button onclick="setConfigColor('#0f172a', '#00f2fe', 'Cyber Cyan', 0)" class="w-10 h-10 rounded-xl bg-slate-900 border-2 border-cyber-cyan flex items-center justify-center transition transform hover:scale-110" title="Cyber Cyan"></button>
+                            <button onclick="setConfigColor('#18181b', '#a855f7', 'Neon Violet', 0)" class="w-10 h-10 rounded-xl bg-zinc-900 border-2 border-purple-500 flex items-center justify-center transition transform hover:scale-110" title="Neon Violet"></button>
+                            <button onclick="setConfigColor('#050505', '#f59e0b', 'Obsidian Gold', 35)" class="w-10 h-10 rounded-xl bg-black border-2 border-amber-500 flex items-center justify-center transition transform hover:scale-110" title="Obsidian Gold (+$35)"></button>
+                            <button onclick="setConfigColor('#334155', '#ffffff', 'Pure Titanium', 50)" class="w-10 h-10 rounded-xl bg-slate-700 border-2 border-white flex items-center justify-center transition transform hover:scale-110" title="Pure Titanium (+$50)"></button>
+                        </div>
+                        <p id="config-color-name" class="text-xs text-cyber-cyan font-mono mt-2">Cyber Cyan Selected</p>
+                    </div>
+
+                    <!-- Material Band Selection -->
+                    <div>
+                        <label class="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2">Strap / Band Material</label>
+                        <select id="config-strap" onchange="recalculateConfigPrice()" class="w-full bg-dark-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-cyber-cyan">
+                            <option value="0">Aerospace Fluoroelastomer (Included)</option>
+                            <option value="50">Woven Carbon Fiber Link (+$50)</option>
+                            <option value="90">Titanium Milanese Loop (+$90)</option>
+                        </select>
+                    </div>
+
+                    <!-- Laser Engraving -->
+                    <div>
+                        <label class="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2">Laser Micro-Engraving (Max 14 chars)</label>
+                        <div class="relative">
+                            <input type="text" id="engraving-input" maxlength="14" placeholder="e.g. CYBER-GHOST" oninput="updateEngraving(this.value)" class="w-full bg-dark-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white font-mono uppercase tracking-wider focus:outline-none focus:border-cyber-cyan">
+                            <span class="absolute right-3 top-3.5 text-xs text-slate-500 font-mono">FREE</span>
+                        </div>
+                    </div>
+
+                    <!-- Add Configured Product to Cart -->
+                    <button onclick="addConfiguredToCart()" class="w-full py-4 rounded-xl bg-gradient-to-r from-cyber-cyan via-cyber-blue to-cyber-violet text-slate-950 font-bold hover:shadow-neon-cyan transform active:scale-95 transition flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-cart-arrow-down"></i>
+                        <span>Order Configured Hardware</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Verified Reviews & Media Endorsements -->
+    <section id="reviews" class="py-24 bg-dark-900/60 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-xs font-mono px-3 py-1 rounded-full bg-cyan-950 text-cyber-cyan border border-cyber-cyan/30">
+                    PRESS & USER INTEL
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-tech font-bold text-white mt-4">
+                    ACCLAIMED BY TECH AUTHORITIES
+                </h2>
+            </div>
+
+            <!-- Media Badge Quotes -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Review Card 1 -->
+                <div class="glass-panel p-8 rounded-3xl border-slate-800 flex flex-col justify-between glass-panel-hover transition duration-300">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="font-tech font-bold text-lg text-white">THE VERGE</span>
+                            <div class="flex text-amber-400 text-xs space-x-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-slate-300 text-sm italic leading-relaxed">
+                            "AetherTech's quantum audio driver doesn't just rival high-end studio cans—it obliterates latency barriers we considered immutable."
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-800 flex items-center space-x-3">
+                        <div class="w-9 h-9 rounded-full bg-cyber-cyan/20 border border-cyber-cyan flex items-center justify-center text-xs font-bold text-cyber-cyan">DK</div>
+                        <div>
+                            <p class="text-xs font-bold text-white">David K., Senior Hardware Editor</p>
+                            <p class="text-[10px] text-slate-400 font-mono">VERIFIED BENCHMARK TEST</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review Card 2 -->
+                <div class="glass-panel p-8 rounded-3xl border-slate-800 flex flex-col justify-between glass-panel-hover transition duration-300">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="font-tech font-bold text-lg text-cyber-cyan">WIRED</span>
+                            <div class="flex text-amber-400 text-xs space-x-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
+                        </div>
+                        <p class="text-slate-300 text-sm italic leading-relaxed">
+                            "The ChronoMatrix watch bridges biomechanical analysis with a design aesthetic straight out of Neo-Tokyo. Truly stunning."
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-800 flex items-center space-x-3">
+                        <div class="w-9 h-9 rounded-full bg-cyber-violet/20 border border-cyber-violet flex items-center justify-center text-xs font-bold text-cyber-violet">SL</div>
+                        <div>
+                            <p class="text-xs font-bold text-white">Sarah Lin, Wearable Tech Lead</p>
+                            <p class="text-[10px] text-slate-400 font-mono">HARDWARE REVIEW 9.8/10</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review Card 3 -->
+                <div class="glass-panel p-8 rounded-3xl border-slate-800 flex flex-col justify-between glass-panel-hover transition duration-300">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="font-tech font-bold text-lg text-cyber-violet">TECHCRUNCH</span>
+                            <div class="flex text-amber-400 text-xs space-x-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-slate-300 text-sm italic leading-relaxed">
+                            "Micro-optics with 8K per eye XR glasses without thermal choking is nothing short of industrial sorcery."
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-800 flex items-center space-x-3">
+                        <div class="w-9 h-9 rounded-full bg-emerald-500/20 border border-emerald-400 flex items-center justify-center text-xs font-bold text-emerald-400">MR</div>
+                        <div>
+                            <p class="text-xs font-bold text-white">Marcus Ray, Founder & Analyst</p>
+                            <p class="text-[10px] text-slate-400 font-mono">INNOVATION OF THE YEAR</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark-950 border-t border-slate-800/80 pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-slate-800/60">
+                <!-- Brand Summary -->
+                <div class="md:col-span-1 space-y-4">
+                    <a href="#" class="flex items-center space-x-3">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-r from-cyber-cyan to-cyber-violet flex items-center justify-center text-slate-950 font-bold text-xs">
+                            AT
+                        </div>
+                        <span class="font-tech text-lg font-bold tracking-wider text-white">AETHER<span class="text-cyber-cyan">TECH</span></span>
+                    </a>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Pioneering cybernetic hardware, neural transducers, and edge interfaces for spatial computing. Designed in Tokyo & San Francisco.
+                    </p>
+                </div>
+
+                <!-- Column 1 -->
+                <div>
+                    <h4 class="text-xs font-mono uppercase tracking-wider text-cyber-cyan mb-4">Hardware Lines</h4>
+                    <ul class="space-y-2 text-xs text-slate-400">
+                        <li><a href="#showcase" class="hover:text-white transition">Nexus Spatial Audio</a></li>
+                        <li><a href="#showcase" class="hover:text-white transition">Vision XR Spectacles</a></li>
+                        <li><a href="#showcase" class="hover:text-white transition">ChronoMatrix Telemetry</a></li>
+                        <li><a href="#showcase" class="hover:text-white transition">Bio-Haptic Controllers</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 2 -->
+                <div>
+                    <h4 class="text-xs font-mono uppercase tracking-wider text-cyber-violet mb-4">Developer & SDK</h4>
+                    <ul class="space-y-2 text-xs text-slate-400">
+                        <li><a href="#" class="hover:text-white transition">Neural DSP APIs</a></li>
+                        <li><a href="#" class="hover:text-white transition">Haptic Engine SDK v3</a></li>
+                        <li><a href="#" class="hover:text-white transition">Open Telemetry Standards</a></li>
+                        <li><a href="#" class="hover:text-white transition">Security Whitepaper</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter / Firmware Drops -->
+                <div>
+                    <h4 class="text-xs font-mono uppercase tracking-wider text-white mb-4">Laboratory Telemetry Dispatch</h4>
+                    <p class="text-xs text-slate-400 mb-3">Subscribe to secret hardware drop invitations and beta firmware seeds.</p>
+                    <form onsubmit="handleNewsletter(event)" class="space-y-2">
+                        <input type="email" required placeholder="operative@domain.com" class="w-full bg-dark-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyber-cyan">
+                        <button type="submit" class="w-full py-2 rounded-xl bg-slate-800 hover:bg-cyber-cyan hover:text-slate-950 font-semibold text-xs transition duration-200">
+                            Authorize Uplink
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500">
+                <p>&copy; 2026 AetherTech Dynamics Inc. All cybernetic rights reserved.</p>
+                <div class="flex space-x-6 mt-4 sm:mt-0 font-mono text-[11px]">
+                    <a href="#" class="hover:text-slate-300">TERMS OF FIRMWARE</a>
+                    <a href="#" class="hover:text-slate-300">PRIVACY PROTOCOL</a>
+                    <a href="#" class="hover:text-slate-300">CRYPTOGRAPHIC KEY</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Drawer (Slide-Over) -->
+    <div id="cart-drawer-overlay" onclick="toggleCartDrawer()" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+    <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-dark-900 border-l border-slate-800 shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
+        <!-- Drawer Header -->
+        <div class="p-6 border-b border-slate-800 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <i class="fa-solid fa-cart-shopping text-cyber-cyan"></i>
+                <h3 class="font-tech text-lg font-bold text-white tracking-wide">SECURE ACQUISITIONS</h3>
+            </div>
+            <button onclick="toggleCartDrawer()" class="text-slate-400 hover:text-white p-2">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+
+        <!-- Drawer Body Items -->
+        <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4">
+            <!-- Populated dynamically via JavaScript -->
+        </div>
+
+        <!-- Drawer Footer Checkout -->
+        <div class="p-6 border-t border-slate-800 bg-dark-950 space-y-4">
+            <!-- Promo code input -->
+            <div class="flex space-x-2">
+                <input id="promo-input" type="text" placeholder="Promo (Try: CYBER20)" class="bg-dark-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white uppercase font-mono flex-1 focus:outline-none focus:border-cyber-cyan">
+                <button onclick="applyPromoCode()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-xs font-mono rounded-xl text-slate-200">APPLY</button>
+            </div>
+
+            <div class="space-y-2 text-xs">
+                <div class="flex justify-between text-slate-400">
+                    <span>Subtotal</span>
+                    <span id="cart-subtotal" class="font-mono text-white">$748.00</span>
+                </div>
+                <div id="discount-row" class="hidden flex justify-between text-emerald-400">
+                    <span>Hardware Discount (20%)</span>
+                    <span id="cart-discount" class="font-mono">-$149.60</span>
+                </div>
+                <div class="flex justify-between text-slate-400">
+                    <span>Quantum Express Courier</span>
+                    <span class="text-emerald-400 font-mono">COMPLIMENTARY</span>
+                </div>
+                <div class="flex justify-between text-base font-bold text-white pt-2 border-t border-slate-800">
+                    <span>Total Required</span>
+                    <span id="cart-total" class="font-tech text-cyber-cyan">$748.00</span>
+                </div>
+            </div>
+
+            <button onclick="simulateCheckout()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyber-cyan to-cyber-blue text-slate-950 font-bold hover:shadow-neon-cyan transition duration-300">
+                PROCEED TO ENCRYPTED CHECKOUT
+            </button>
+        </div>
+    </div>
+
+    <!-- Quick View Specs Modal -->
+    <div id="quickview-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="glass-panel w-full max-w-3xl rounded-3xl border border-slate-700 p-6 sm:p-8 relative shadow-2xl max-h-[90vh] overflow-y-auto">
+            <button onclick="closeQuickView()" class="absolute top-6 right-6 text-slate-400 hover:text-white p-2">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <div id="quickview-content">
+                <!-- Dynamically loaded -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Wishlist Modal -->
+    <div id="wishlist-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="glass-panel w-full max-w-md rounded-3xl border border-slate-700 p-6 relative shadow-2xl">
+            <button onclick="toggleWishlistModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white p-2">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <h3 class="font-tech text-lg font-bold text-white mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-heart text-cyber-violet"></i> YOUR HARDWARE BOOKMARKS
+            </h3>
+            <div id="wishlist-items-container" class="space-y-3 max-h-80 overflow-y-auto">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Comprehensive JavaScript Architecture -->
+    <script>
+        /* ========================================================
+           1. PRODUCT DATA MATRIX (Extensive Specs & States)
+        ======================================================== */
+        const GADGETS = [
+            {
+                id: 'prod_1',
+                name: 'Aether Nexus-9 Headphones',
+                category: 'audio',
+                price: 499,
+                tag: 'FLAGSHIP',
+                tagColor: 'bg-cyan-500/20 text-cyber-cyan border-cyber-cyan/40',
+                shortDesc: 'Over-ear neural acoustic system with 96kHz lossless low-latency link.',
+                specs: {
+                    processor: 'Dual Aether Neural-V DSP',
+                    battery: '64 Hours with Fast Charge',
+                    display: 'Mini OLED Status Badge',
+                    waterResistance: 'IPX5 Sweat & Rain Shield',
+                    weight: '248 grams',
+                    connectivity: 'Quantum-Link 2.4GHz + BT 5.4'
+                },
+                batteryHours: 64,
+                audioBandwidth: '5Hz - 50kHz',
+                rating: 4.9,
+                reviewsCount: 382,
+                colors: [
+                    { name: 'Titanium Gray', hex: '#64748b' },
+                    { name: 'Obsidian Black', hex: '#0f172a' },
+                    { name: 'Cyber Cyan', hex: '#00f2fe' }
+                ],
+                icon: 'fa-headphones-simple'
+            },
+            {
+                id: 'prod_2',
+                name: 'ChronoMatrix Watch Ultra',
+                category: 'wearables',
+                price: 599,
+                tag: 'BESTSELLER',
+                tagColor: 'bg-purple-500/20 text-cyber-violet border-cyber-violet/40',
+                shortDesc: 'Continuous bio-spectral tracking, arterial pulse metrics, and micro-HUD.',
+                specs: {
+                    processor: 'Octa-Core Chronos Bio-SoC',
+                    battery: '14 Days in Eco Mode',
+                    display: '1.9" MicroLED 3000 nits',
+                    waterResistance: '100m Dive Proof (10 ATM)',
+                    weight: '52 grams',
+                    connectivity: 'eSIM 5G + Satellite Beacon'
+                },
+                batteryHours: 72,
+                audioBandwidth: 'Integrated Mic/Speaker',
+                rating: 4.8,
+                reviewsCount: 512,
+                colors: [
+                    { name: 'Titanium Gray', hex: '#475569' },
+                    { name: 'Cyber Violet', hex: '#a855f7' },
+                    { name: 'Pure Frost', hex: '#e2e8f0' }
+                ],
+                icon: 'fa-clock'
+            },
+            {
+                id: 'prod_3',
+                name: 'Vortex XR Holographic Visor',
+                category: 'vision',
+                price: 1199,
+                tag: 'NEW RELEASE',
+                tagColor: 'bg-emerald-500/20 text-emerald-400 border-emerald-400/40',
+                shortDesc: 'Spatial computing glasses with dual 8K Micro-OLED and hand-tracking.',
+                specs: {
+                    processor: 'Triple Neural Engine 16-Core',
+                    battery: '4.5 Hours Internal + Clip Pack',
+                    display: 'Dual 8K Micro-OLED 120Hz',
+                    waterResistance: 'IP54 Dust & Splash Resistance',
+                    weight: '162 grams',
+                    connectivity: 'Wi-Fi 7 + Ultra-Wideband Link'
+                },
+                batteryHours: 12,
+                audioBandwidth: 'Directional Spatial Beam',
+                rating: 4.95,
+                reviewsCount: 149,
+                colors: [
+                    { name: 'Obsidian Black', hex: '#020617' },
+                    { name: 'Titanium Gray', hex: '#334155' }
+                ],
+                icon: 'fa-vr-cardboard'
+            },
+            {
+                id: 'prod_4',
+                name: 'Synapse Neural Ring v2',
+                category: 'wearables',
+                price: 299,
+                tag: 'INNOVATION',
+                tagColor: 'bg-amber-500/20 text-amber-400 border-amber-400/40',
+                shortDesc: 'Titanium smart ring measuring vascular tone, sleep REM, and gesture triggers.',
+                specs: {
+                    processor: 'Sub-mW Micro Cortex M55',
+                    battery: '8 Days on Single Charge',
+                    display: 'Haptic Ring Vibrator Pulse',
+                    waterResistance: 'Titanium Unibody 50m',
+                    weight: '6.4 grams',
+                    connectivity: 'Bluetooth Low Energy 5.4'
+                },
+                batteryHours: 192,
+                audioBandwidth: 'Haptic Resonator',
+                rating: 4.7,
+                reviewsCount: 220,
+                colors: [
+                    { name: 'Pure Gold', hex: '#f59e0b' },
+                    { name: 'Space Gray', hex: '#1e293b' },
+                    { name: 'Frost Chrome', hex: '#cbd5e1' }
+                ],
+                icon: 'fa-ring'
+            },
+            {
+                id: 'prod_5',
+                name: 'HyperDrive Quantum Deck',
+                category: 'cybernetics',
+                price: 849,
+                tag: 'CYBER-DECK',
+                tagColor: 'bg-cyan-500/20 text-cyber-cyan border-cyber-cyan/40',
+                shortDesc: 'Portable pocket supercomputing terminal for edge AI models and code compilation.',
+                specs: {
+                    processor: '12-Core ARM Edge Cluster',
+                    battery: '16 Hours Sustained Compute',
+                    display: '7" Ultra-Wide Foldable AMOLED',
+                    waterResistance: 'IP65 Weather Hardened',
+                    weight: '410 grams',
+                    connectivity: 'Dual Thunderbolt 4 + 5G SA'
+                },
+                batteryHours: 16,
+                audioBandwidth: 'Stereo Hi-Fi Tweeters',
+                rating: 4.9,
+                reviewsCount: 94,
+                colors: [
+                    { name: 'Industrial Gray', hex: '#1e293b' },
+                    { name: 'Cyber Neon', hex: '#00ffc4' }
+                ],
+                icon: 'fa-gamepad'
+            },
+            {
+                id: 'prod_6',
+                name: 'Orbital Drone Beacon Hub',
+                category: 'cybernetics',
+                price: 379,
+                tag: 'PERIPHERAL',
+                tagColor: 'bg-purple-500/20 text-cyber-violet border-cyber-violet/40',
+                shortDesc: 'Desk telemetry beacon that synchronizes ambient home lights and spatial acoustics.',
+                specs: {
+                    processor: 'IoT Mesh Controller Hub',
+                    battery: 'Continuous AC / 6h Battery Back',
+                    display: '360 RGB Hologram Light Sphere',
+                    waterResistance: 'Indoor Use Only',
+                    weight: '680 grams',
+                    connectivity: 'Thread + Matter + Wi-Fi 6E'
+                },
+                batteryHours: 6,
+                audioBandwidth: 'Full-Range Subwoofer Base',
+                rating: 4.6,
+                reviewsCount: 180,
+                colors: [
+                    { name: 'Titanium Shell', hex: '#475569' },
+                    { name: 'Dark Void', hex: '#030712' }
+                ],
+                icon: 'fa-satellite-dish'
+            }
+        ];
+
+        /* Shopping Cart State */
+        let cart = [
+            { id: 'prod_1', name: 'Aether Nexus-9 Headphones', price: 499, color: 'Titanium Gray', qty: 1 },
+            { id: 'prod_4', name: 'Synapse Neural Ring v2', price: 299, color: 'Space Gray', qty: 1 }
+        ];
+
+        /* Wishlist State */
+        let wishlist = ['prod_1', 'prod_3'];
+        let discountApplied = false;
+
+        /* Configurator Live State */
+        let configState = {
+            basePrice: 599,
+            modelName: 'ChronoMatrix Watch',
+            colorName: 'Cyber Cyan',
+            chassisHex: '#0f172a',
+            accentHex: '#00f2fe',
+            colorFee: 0,
+            strapFee: 0,
+            engraving: 'AETHER-CUSTOM'
+        };
+
+        /* ========================================================
+           2. INITIALIZATION & RENDER
+        ======================================================== */
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProductGrid(GADGETS);
+            populateComparatorDropdowns();
+            updateComparator();
+            renderCart();
+            updateWishlistBadge();
+        });
+
+        /* ========================================================
+           3. PRODUCT GRID WITH COLOR SWITCHERS & 360 ROTATE
+        ======================================================== */
+        function renderProductGrid(items) {
+            const container = document.getElementById('product-grid');
+            container.innerHTML = '';
+
+            items.forEach((gadget) => {
+                const isFavorited = wishlist.includes(gadget.id);
+                const card = document.createElement('div');
+                card.className = 'glass-panel rounded-3xl p-6 border-slate-800 glass-panel-hover flex flex-col justify-between transition-all duration-300 relative group';
+                card.id = `card-${gadget.id}`;
+
+                card.innerHTML = `
+                    <div>
+                        <!-- Top Tag and Actions -->
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-[10px] font-mono px-3 py-1 rounded-full border ${gadget.tagColor}">
+                                ${gadget.tag}
+                            </span>
+                            <div class="flex items-center space-x-2">
+                                <button onclick="toggleWishlistItem('${gadget.id}')" class="p-2 rounded-lg bg-dark-900 border border-slate-700/60 hover:border-pink-500 text-slate-300 hover:text-pink-500 transition">
+                                    <i class="${isFavorited ? 'fa-solid fa-heart text-pink-500' : 'fa-regular fa-heart'}"></i>
+                                </button>
+                                <button onclick="openQuickView('${gadget.id}')" class="p-2 rounded-lg bg-dark-900 border border-slate-700/60 hover:border-cyber-cyan text-slate-300 hover:text-cyber-cyan transition" title="Quick Specs">
+                                    <i class="fa-solid fa-expand text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Product Visual Stage with Multi-Angle Flip -->
+                        <div class="relative w-full h-48 rounded-2xl bg-dark-950/70 border border-slate-800/80 flex items-center justify-center overflow-hidden mb-6 group/stage">
+                            <!-- Vector Visual Representation -->
+                            <div id="visual-${gadget.id}" class="transform transition-transform duration-700 group-hover/stage:scale-105">
+                                <div class="w-28 h-28 rounded-2xl border-2 flex items-center justify-center transition-colors duration-300 shadow-neon-cyan" style="border-color: ${gadget.colors[0].hex}; background: rgba(15, 23, 42, 0.8);">
+                                    <i class="fa-solid ${gadget.icon} text-4xl text-white"></i>
+                                </div>
+                            </div>
+                            
+                            <!-- 360 Angle Toggle Pill -->
+                            <button onclick="rotateCardView('${gadget.id}')" class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-dark-900/90 border border-slate-700 text-[10px] font-mono text-slate-300 hover:text-cyber-cyan flex items-center space-x-1 transition">
+                                <i class="fa-solid fa-arrows-rotate text-[9px]"></i>
+                                <span>360° VIEW</span>
+                            </button>
+                        </div>
+
+                        <!-- Product Title and Description -->
+                        <div class="space-y-1 mb-4">
+                            <h3 class="text-lg font-tech font-bold text-white group-hover:text-cyber-cyan transition-colors">
+                                ${gadget.name}
+                            </h3>
+                            <p class="text-slate-400 text-xs line-clamp-2 leading-relaxed">
+                                ${gadget.shortDesc}
+                            </p>
+                        </div>
+
+                        <!-- Color Finishes Selector -->
+                        <div class="flex items-center justify-between py-2 border-t border-b border-slate-800/80 text-xs mb-4">
+                            <span class="text-[11px] font-mono text-slate-400">FINISH</span>
+                            <div class="flex items-center space-x-2">
+                                ${gadget.colors.map((c, i) => `
+                                    <button onclick="changeCardColor('${gadget.id}', '${c.hex}', '${c.name}')" class="w-4 h-4 rounded-full border border-slate-600 transition hover:scale-125 focus:ring-2 focus:ring-cyber-cyan" style="background-color: ${c.hex}" title="${c.name}"></button>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Price & CTA -->
+                    <div class="flex items-center justify-between pt-2">
+                        <div>
+                            <span class="text-[10px] text-slate-500 font-mono block">VALUATION</span>
+                            <span class="text-xl font-tech font-bold text-cyber-cyan">$${gadget.price}</span>
+                        </div>
+                        <button onclick="quickAddToCart('${gadget.name}', ${gadget.price}, '${gadget.colors[0].name}', '${gadget.id}')" class="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-cyber-cyan text-slate-200 hover:text-slate-950 font-semibold text-xs border border-slate-700 hover:border-cyber-cyan transition flex items-center space-x-2">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>Add to Cart</span>
+                        </button>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        /* Filter Products by Category */
+        function filterProducts(category, btnElement) {
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.className = 'category-btn px-5 py-2 rounded-xl bg-slate-900 text-slate-300 border border-slate-800 hover:border-slate-700 transition whitespace-nowrap';
+            });
+            btnElement.className = 'category-btn px-5 py-2 rounded-xl bg-cyber-cyan text-slate-950 font-semibold transition whitespace-nowrap';
+
+            if (category === 'all') {
+                renderProductGrid(GADGETS);
+            } else {
+                const filtered = GADGETS.filter(item => item.category === category);
+                renderProductGrid(filtered);
+            }
+        }
+
+        /* 360-degree rotation simulation on card */
+        let cardRotations = {};
+        function rotateCardView(id) {
+            const visual = document.getElementById(`visual-${id}`);
+            if (!visual) return;
+            cardRotations[id] = (cardRotations[id] || 0) + 180;
+            visual.style.transform = `rotateY(${cardRotations[id]}deg) scale(1.08)`;
+            showToast("Switched perspective to 180° rear telemetry view", "info");
+        }
+
+        /* Change color preview dynamically */
+        function changeCardColor(id, hex, colorName) {
+            const visual = document.getElementById(`visual-${id}`);
+            if (visual) {
+                const innerBox = visual.querySelector('div');
+                innerBox.style.borderColor = hex;
+                showToast(`Applied ${colorName} finish`, "info");
+            }
+        }
+
+        /* ========================================================
+           4. SIDE-BY-SIDE GADGET COMPARATOR
+        ======================================================== */
+        function populateComparatorDropdowns() {
+            const select1 = document.getElementById('comparator-select-1');
+            const select2 = document.getElementById('comparator-select-2');
+            select1.innerHTML = '';
+            select2.innerHTML = '';
+
+            GADGETS.forEach((g, idx) => {
+                const opt1 = new Option(g.name, g.id, false, idx === 0);
+                const opt2 = new Option(g.name, g.id, false, idx === 1);
+                select1.add(opt1);
+                select2.add(opt2);
+            });
+        }
+
+        function updateComparator() {
+            const id1 = document.getElementById('comparator-select-1').value;
+            const id2 = document.getElementById('comparator-select-2').value;
+
+            const dev1 = GADGETS.find(g => g.id === id1) || GADGETS[0];
+            const dev2 = GADGETS.find(g => g.id === id2) || GADGETS[1];
+
+            document.getElementById('comp-head-1').innerText = dev1.name;
+            document.getElementById('comp-head-2').innerText = dev2.name;
+
+            const tableBody = document.getElementById('comparator-tbody');
+            const metrics = [
+                { key: 'processor', label: 'Processing Architecture' },
+                { key: 'battery', label: 'Battery / Power Autonomy' },
+                { key: 'display', label: 'Display & Visual Interface' },
+                { key: 'waterResistance', label: 'Environmental Resistance' },
+                { key: 'weight', label: 'Total Mass / Weight' },
+                { key: 'connectivity', label: 'Wireless Protocol' }
+            ];
+
+            let rowsHtml = '';
+            metrics.forEach(m => {
+                rowsHtml += `
+                    <tr class="hover:bg-white/[0.02] transition">
+                        <td class="p-5 font-mono text-xs text-slate-400 font-semibold">${m.label}</td>
+                        <td class="p-5 font-mono text-xs text-cyber-cyan">${dev1.specs[m.key]}</td>
+                        <td class="p-5 font-mono text-xs text-cyber-violet">${dev2.specs[m.key]}</td>
+                    </tr>
+                `;
+            });
+
+            // Benchmark Bar Comparison
+            rowsHtml += `
+                <tr class="bg-dark-900/50">
+                    <td class="p-5 font-mono text-xs text-slate-400 font-semibold">Autonomy Benchmarks</td>
+                    <td class="p-5">
+                        <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden">
+                            <div class="bg-cyber-cyan h-2.5 rounded-full" style="width: ${Math.min(dev1.batteryHours, 100)}%"></div>
+                        </div>
+                        <span class="text-[10px] text-slate-400 font-mono mt-1 block">${dev1.batteryHours} rated hours</span>
+                    </td>
+                    <td class="p-5">
+                        <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden">
+                            <div class="bg-cyber-violet h-2.5 rounded-full" style="width: ${Math.min(dev2.batteryHours, 100)}%"></div>
+                        </div>
+                        <span class="text-[10px] text-slate-400 font-mono mt-1 block">${dev2.batteryHours} rated hours</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="p-5 font-mono text-xs text-slate-400 font-semibold">Acquisition Price</td>
+                    <td class="p-5 font-tech text-base font-bold text-white">$${dev1.price}</td>
+                    <td class="p-5 font-tech text-base font-bold text-white">$${dev2.price}</td>
+                </tr>
+            `;
+
+            tableBody.innerHTML = rowsHtml;
+        }
+
+        /* ========================================================
+           5. TEARDOWN & HOTSPOTS
+        ======================================================== */
+        function switchTeardownView(mode) {
+            const internals = document.getElementById('schematic-internals');
+            const body = document.getElementById('schematic-body');
+            const btnExt = document.getElementById('btn-exterior');
+            const btnXray = document.getElementById('btn-xray');
+
+            if (mode === 'xray') {
+                internals.classList.remove('opacity-30');
+                internals.classList.add('opacity-100');
+                body.setAttribute('fill', '#040813');
+                body.setAttribute('stroke', '#a855f7');
+                btnXray.className = 'px-5 py-2 text-xs font-mono rounded-lg bg-cyber-violet text-white font-bold transition';
+                btnExt.className = 'px-5 py-2 text-xs font-mono rounded-lg text-slate-400 hover:text-white transition';
+                showToast("Quantum X-Ray telemetry lens engaged", "success");
+            } else {
+                internals.classList.add('opacity-30');
+                internals.classList.remove('opacity-100');
+                body.setAttribute('fill', '#0f172a');
+                body.setAttribute('stroke', '#00f2fe');
+                btnExt.className = 'px-5 py-2 text-xs font-mono rounded-lg bg-cyber-cyan text-slate-950 font-bold transition';
+                btnXray.className = 'px-5 py-2 text-xs font-mono rounded-lg text-slate-400 hover:text-white transition';
+            }
+        }
+
+        function revealHotspot(index) {
+            const title = document.getElementById('hotspot-title');
+            const desc = document.getElementById('hotspot-desc');
+
+            if (index === 1) {
+                title.innerHTML = '<i class="fa-solid fa-microchip mr-2"></i>Aether Neural-V Processor';
+                desc.innerText = 'Handles 4.2 trillion ops/sec dynamically sculpting the ambient noise floor to total silence while preserving spatial accuracy.';
+            } else if (index === 2) {
+                title.innerHTML = '<i class="fa-solid fa-battery-bolt mr-2 text-emerald-400"></i>Solid-State Graphene Pack';
+                desc.innerText = 'Nano-engineered non-volatile graphene matrix with zero thermal degradation after 5,000 charging cycles.';
+            } else if (index === 3) {
+                title.innerHTML = '<i class="fa-solid fa-wave-square mr-2 text-cyber-violet"></i>Planar Magnetic Transducer';
+                desc.innerText = 'Ultra-thin gold sputtered diaphragm suspended between opposing neodymium magnets for distortion-free 96kHz audio.';
+            }
+        }
+
+        /* ========================================================
+           6. LIVE CONFIGURATOR / STUDIO
+        ======================================================== */
+        function setConfigModel(type, price) {
+            configState.basePrice = price;
+            const btnChrono = document.getElementById('btn-model-chrono');
+            const btnNeural = document.getElementById('btn-model-neural');
+
+            if (type === 'chrono') {
+                configState.modelName = 'ChronoMatrix Watch';
+                btnChrono.className = 'p-3.5 rounded-xl border border-cyber-cyan bg-slate-900 text-left text-xs transition';
+                btnNeural.className = 'p-3.5 rounded-xl border border-slate-800 bg-dark-900 text-left text-xs transition hover:border-slate-700';
+            } else {
+                configState.modelName = 'Neural Bands Gen-3';
+                btnNeural.className = 'p-3.5 rounded-xl border border-cyber-cyan bg-slate-900 text-left text-xs transition';
+                btnChrono.className = 'p-3.5 rounded-xl border border-slate-800 bg-dark-900 text-left text-xs transition hover:border-slate-700';
+            }
+            recalculateConfigPrice();
+        }
+
+        function setConfigColor(chassisColor, accentColor, name, fee) {
+            configState.chassisHex = chassisColor;
+            configState.accentHex = accentColor;
+            configState.colorName = name;
+            configState.colorFee = fee;
+
+            document.getElementById('config-chassis').setAttribute('fill', chassisColor);
+            document.getElementById('config-chassis').setAttribute('stroke', accentColor);
+            document.getElementById('config-accent-circle').setAttribute('stroke', accentColor);
+            document.getElementById('config-telemetry-text').setAttribute('fill', accentColor);
+            document.getElementById('config-color-name').innerText = `${name} Selected`;
+
+            // Update ambient glow behind watch
+            document.getElementById('config-glow').style.backgroundColor = accentColor;
+
+            recalculateConfigPrice();
+        }
+
+        function updateEngraving(text) {
+            const cleanText = text.trim() === '' ? 'AETHER-CUSTOM' : text.toUpperCase();
+            configState.engraving = cleanText;
+            document.getElementById('svg-engraving-text').textContent = cleanText;
+        }
+
+        function recalculateConfigPrice() {
+            const strapFee = parseInt(document.getElementById('config-strap').value, 10);
+            configState.strapFee = strapFee;
+            const total = configState.basePrice + configState.colorFee + strapFee;
+            document.getElementById('config-total-price').innerText = `$${total}`;
+        }
+
+        function addConfiguredToCart() {
+            const total = configState.basePrice + configState.colorFee + configState.strapFee;
+            const customTitle = `${configState.modelName} [Custom Engraved: ${configState.engraving}]`;
+            
+            cart.push({
+                id: 'custom_' + Date.now(),
+                name: customTitle,
+                price: total,
+                color: configState.colorName,
+                qty: 1
+            });
+
+            renderCart();
+            toggleCartDrawer();
+            showToast("Custom lab configuration added to bag!", "success");
+        }
+
+        /* ========================================================
+           7. SHOPPING CART & CHECKOUT
+        ======================================================== */
+        function toggleCartDrawer() {
+            const overlay = document.getElementById('cart-drawer-overlay');
+            const drawer = document.getElementById('cart-drawer');
+
+            if (drawer.classList.contains('translate-x-full')) {
+                drawer.classList.remove('translate-x-full');
+                overlay.classList.remove('opacity-0', 'pointer-events-none');
+            } else {
+                drawer.classList.add('translate-x-full');
+                overlay.classList.add('opacity-0', 'pointer-events-none');
+            }
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cart-items-container');
+            const counter = document.getElementById('cart-counter');
+            container.innerHTML = '';
+
+            let subtotal = 0;
+            let totalItems = 0;
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="h-64 flex flex-col items-center justify-center text-center">
+                        <i class="fa-solid fa-box-open text-4xl text-slate-700 mb-3"></i>
+                        <p class="text-sm font-medium text-slate-400">Cart storage is unpopulated.</p>
+                        <p class="text-xs text-slate-600 mt-1">Select futuristic gear to initialize.</p>
+                    </div>
+                `;
+            } else {
+                cart.forEach((item, index) => {
+                    subtotal += item.price * item.qty;
+                    totalItems += item.qty;
+
+                    const itemEl = document.createElement('div');
+                    itemEl.className = 'glass-panel p-4 rounded-2xl border-slate-800 flex items-center justify-between text-xs';
+                    itemEl.innerHTML = `
+                        <div class="flex-1 pr-3">
+                            <h4 class="font-bold text-white text-xs">${item.name}</h4>
+                            <span class="text-slate-400 font-mono text-[10px]">Finish: ${item.color}</span>
+                            <div class="mt-2 flex items-center space-x-2">
+                                <button onclick="updateQty(${index}, -1)" class="w-6 h-6 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center">-</button>
+                                <span class="font-mono text-white font-bold">${item.qty}</span>
+                                <button onclick="updateQty(${index}, 1)" class="w-6 h-6 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center">+</button>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-tech text-sm font-bold text-cyber-cyan">$${item.price * item.qty}</p>
+                            <button onclick="removeCartItem(${index})" class="text-slate-500 hover:text-red-400 mt-2 text-[11px]">
+                                <i class="fa-solid fa-trash-can mr-1"></i>Remove
+                            </button>
+                        </div>
+                    `;
+                    container.appendChild(itemEl);
+                });
+            }
+
+            counter.innerText = totalItems;
+            document.getElementById('cart-subtotal').innerText = `$${subtotal.toFixed(2)}`;
+
+            let discount = 0;
+            if (discountApplied) {
+                discount = subtotal * 0.20;
+                document.getElementById('discount-row').classList.remove('hidden');
+                document.getElementById('cart-discount').innerText = `-$${discount.toFixed(2)}`;
+            } else {
+                document.getElementById('discount-row').classList.add('hidden');
+            }
+
+            const total = subtotal - discount;
+            document.getElementById('cart-total').innerText = `$${total.toFixed(2)}`;
+        }
+
+        function updateQty(index, delta) {
+            cart[index].qty += delta;
+            if (cart[index].qty <= 0) {
+                cart.splice(index, 1);
+            }
+            renderCart();
+        }
+
+        function removeCartItem(index) {
+            cart.splice(index, 1);
+            renderCart();
+            showToast("Item purged from cart", "info");
+        }
+
+        function quickAddToCart(name, price, color, id) {
+            const existing = cart.find(item => item.name === name && item.color === color);
+            if (existing) {
+                existing.qty++;
+            } else {
+                cart.push({ id, name, price, color, qty: 1 });
+            }
+            renderCart();
+            showToast(`Added ${name} to acquisitions`, "success");
+        }
+
+        function applyPromoCode() {
+            const input = document.getElementById('promo-input').value.trim().toUpperCase();
+            if (input === 'CYBER20') {
+                discountApplied = true;
+                renderCart();
+                showToast("Promo Code CYBER20 applied: 20% discount granted", "success");
+            } else {
+                showToast("Invalid authorization code", "error");
+            }
+        }
+
+        function simulateCheckout() {
+            if (cart.length === 0) {
+                showToast("Cart is empty", "error");
+                return;
+            }
+            toggleCartDrawer();
+            showToast("Quantum Payment Gateway Engaged! Thank you for choosing AetherTech.", "success");
+            cart = [];
+            renderCart();
+        }
+
+        /* ========================================================
+           8. WISHLIST MANAGEMENT
+        ======================================================== */
+        function toggleWishlistItem(id) {
+            const index = wishlist.indexOf(id);
+            if (index > -1) {
+                wishlist.splice(index, 1);
+                showToast("Removed from hardware bookmarks", "info");
+            } else {
+                wishlist.push(id);
+                showToast("Saved to cybernetic wishlist", "success");
+            }
+            updateWishlistBadge();
+            renderProductGrid(GADGETS);
+            renderWishlistModal();
+        }
+
+        function updateWishlistBadge() {
+            const badge = document.getElementById('wishlist-badge');
+            if (wishlist.length > 0) {
+                badge.innerText = wishlist.length;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        function toggleWishlistModal() {
+            const modal = document.getElementById('wishlist-modal');
+            if (modal.classList.contains('pointer-events-none')) {
+                renderWishlistModal();
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+            } else {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+            }
+        }
+
+        function renderWishlistModal() {
+            const container = document.getElementById('wishlist-items-container');
+            container.innerHTML = '';
+
+            if (wishlist.length === 0) {
+                container.innerHTML = '<p class="text-xs text-slate-400">No bookmarked items found.</p>';
+                return;
+            }
+
+            wishlist.forEach(id => {
+                const item = GADGETS.find(g => g.id === id);
+                if (!item) return;
+
+                const div = document.createElement('div');
+                div.className = 'glass-panel p-3 rounded-xl border border-slate-800 flex items-center justify-between text-xs';
+                div.innerHTML = `
+                    <div>
+                        <p class="font-bold text-white">${item.name}</p>
+                        <p class="text-cyber-cyan font-mono text-[11px]">$${item.price}</p>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="quickAddToCart('${item.name}', ${item.price}, '${item.colors[0].name}', '${item.id}')" class="px-3 py-1.5 rounded-lg bg-cyber-cyan text-slate-950 font-bold text-[11px]">
+                            Acquire
+                        </button>
+                        <button onclick="toggleWishlistItem('${item.id}')" class="text-slate-400 hover:text-red-400 p-1">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        /* ========================================================
+           9. QUICK VIEW MODAL
+        ======================================================== */
+        function openQuickView(id) {
+            const gadget = GADGETS.find(g => g.id === id);
+            if (!gadget) return;
+
+            const modal = document.getElementById('quickview-modal');
+            const content = document.getElementById('quickview-content');
+
+            content.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="h-64 rounded-2xl bg-dark-950 border border-slate-800 flex items-center justify-center p-6">
+                        <div class="w-36 h-36 rounded-2xl border-2 border-cyber-cyan flex items-center justify-center bg-slate-900/60 shadow-neon-cyan">
+                            <i class="fa-solid ${gadget.icon} text-6xl text-cyber-cyan"></i>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <span class="text-[10px] font-mono px-3 py-1 rounded-full border ${gadget.tagColor}">${gadget.tag}</span>
+                        <h2 class="text-2xl font-tech font-bold text-white">${gadget.name}</h2>
+                        <p class="text-slate-300 text-xs leading-relaxed">${gadget.shortDesc}</p>
+                        
+                        <div class="space-y-2 py-3 border-t border-b border-slate-800 text-xs">
+                            <div class="flex justify-between"><span class="text-slate-400 font-mono">Architecture:</span> <span class="text-white">${gadget.specs.processor}</span></div>
+                            <div class="flex justify-between"><span class="text-slate-400 font-mono">Autonomy:</span> <span class="text-white">${gadget.specs.battery}</span></div>
+                            <div class="flex justify-between"><span class="text-slate-400 font-mono">Mass:</span> <span class="text-white">${gadget.specs.weight}</span></div>
+                            <div class="flex justify-between"><span class="text-slate-400 font-mono">Telemetry:</span> <span class="text-white">${gadget.specs.connectivity}</span></div>
+                        </div>
+
+                        <div class="flex items-center justify-between pt-2">
+                            <span class="text-3xl font-tech font-bold text-cyber-cyan">$${gadget.price}</span>
+                            <button onclick="quickAddToCart('${gadget.name}', ${gadget.price}, '${gadget.colors[0].name}', '${gadget.id}'); closeQuickView();" class="px-6 py-3 rounded-xl bg-gradient-to-r from-cyber-cyan to-cyber-blue text-slate-950 font-bold hover:shadow-neon-cyan transition text-xs">
+                                Add To Acquisition
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        function closeQuickView() {
+            const modal = document.getElementById('quickview-modal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        /* ========================================================
+           10. UI UTILITIES & MICRO-INTERACTIONS
+        ======================================================== */
+        function toggleMobileNav() {
+            const nav = document.getElementById('mobile-nav');
+            nav.classList.toggle('hidden');
+        }
+
+        function handleNewsletter(e) {
+            e.preventDefault();
+            showToast("Uplink encrypted. You are enrolled in Tier-1 firmware drops.", "success");
+            e.target.reset();
+        }
+
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            let borderClass = 'border-cyber-cyan';
+            let iconClass = 'fa-circle-info text-cyber-cyan';
+
+            if (type === 'success') {
+                borderClass = 'border-emerald-400';
+                iconClass = 'fa-circle-check text-emerald-400';
+            } else if (type === 'error') {
+                borderClass = 'border-red-400';
+                iconClass = 'fa-triangle-exclamation text-red-400';
+            }
+
+            toast.className = `glass-panel px-4 py-3 rounded-xl border ${borderClass} shadow-glass text-xs text-white flex items-center space-x-3 pointer-events-auto transform translate-y-3 opacity-0 transition-all duration-300`;
+            toast.innerHTML = `
+                <i class="fa-solid ${iconClass}"></i>
+                <span>${message}</span>
+            `;
+
+            container.appendChild(toast);
+
+            // Animate In
+            setTimeout(() => {
+                toast.classList.remove('translate-y-3', 'opacity-0');
+            }, 10);
+
+            // Auto Remove after 3.5s
+            setTimeout(() => {
+                toast.classList.add('translate-y-3', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
